@@ -1,0 +1,216 @@
+lakeench
+├── backend
+│   ├── predefined_lakes
+│   │   ├── bandam_kunta.json
+│   │   ├── govt_sy_no.json
+│   │   ├── jagambandam_kunta.json
+│   │   ├── kalmaha_kunta.json
+│   │   ├── pedda_cheruvu.json
+│   │   ├── ramanna_cheruvu.json
+│   │   └── vadlavani_kunta.json
+│   ├── DETECTED_RESPONSE_SCHEMA.json
+│   ├── add_lakes.py
+│   ├── analysis_service.py
+│   ├── app.py
+│   ├── bootstrap_candidate_generator.py
+│   ├── build_clean_dataset.py
+│   ├── gee-service-account.json
+│   ├── gee_diagnostics.py
+│   ├── gee_init.py
+│   ├── gee_processor.py
+│   ├── generate_labeling_grid_ramanna.py
+│   ├── generate_training_data.py
+│   ├── geojson_to_verified_csv.py
+│   ├── inference_engine.py
+│   ├── keys.txt
+│   ├── kml_parser.py
+│   ├── lake_routes.py
+│   ├── lakeench.code-workspace
+│   ├── map_renderer.py
+│   ├── merge_bootstrap_data.py
+│   ├── merge_ramanna_manual_labels.py
+│   ├── model_training_stats.json
+│   ├── offline_validation_ramanna.py
+│   ├── pipeline_config.py
+│   ├── predefined_lakes_endpoints.py
+│   ├── proper_rf_results.txt
+│   ├── requirements.txt
+│   ├── retrain_model.py
+│   ├── runtime_feature_stats.json
+│   ├── scientific_reliability_evaluator.py
+│   ├── start_backend.bat
+│   ├── tiling.py
+│   ├── train_rf_proper.py
+│   ├── train_stable_rf.py
+│   ├── train_xgboost.py
+│   └── validated_pipeline_v2.py
+├── models
+│   ├── confusion_matrix.png
+│   ├── encroachment_rf.pkl
+│   ├── encroachment_rf_stable.pkl
+│   ├── encroachment_xgb.pkl
+│   ├── encroachment_xgb_authoritative.pkl
+│   ├── encroachment_xgb_bootstrapped.pkl
+│   ├── error_samples.csv
+│   ├── feature_distributions.png
+│   ├── label_encoder.pkl
+│   ├── label_encoder_authoritative.pkl
+│   ├── label_encoder_stable.pkl
+│   ├── label_encoder_xgb.pkl
+│   ├── label_encoder_xgb_bootstrapped.pkl
+│   ├── predictions.csv
+│   ├── predictions_with_uncertainty.csv
+│   ├── rf_proper.pkl
+│   ├── temporal_consistency_results.csv
+│   ├── training_report.txt
+│   ├── training_stats.json
+│   ├── xgboost_label_encoder.pkl
+│   ├── xgboost_model.pkl
+│   ├── xgboost_scaler.pkl
+│   └── xgboost_training_stats.json
+├── water-watcher
+│   ├── public
+│   │   ├── data
+│   │   │   └── ramanna.kmz
+│   │   ├── favicon.ico
+│   │   ├── iith_logo.png
+│   │   ├── placeholder.svg
+│   │   ├── robots.txt
+│   │   └── test-kmz.html
+│   ├── src
+│   │   ├── components
+│   │   │   ├── ui
+│   │   │   │   ├── accordion.tsx
+│   │   │   │   ├── alert-dialog.tsx
+│   │   │   │   ├── alert.tsx
+│   │   │   │   ├── aspect-ratio.tsx
+│   │   │   │   ├── avatar.tsx
+│   │   │   │   ├── badge.tsx
+│   │   │   │   ├── breadcrumb.tsx
+│   │   │   │   ├── button.tsx
+│   │   │   │   ├── calendar.tsx
+│   │   │   │   ├── card.tsx
+│   │   │   │   ├── carousel.tsx
+│   │   │   │   ├── chart.tsx
+│   │   │   │   ├── checkbox.tsx
+│   │   │   │   ├── collapsible.tsx
+│   │   │   │   ├── command.tsx
+│   │   │   │   ├── context-menu.tsx
+│   │   │   │   ├── dialog.tsx
+│   │   │   │   ├── drawer.tsx
+│   │   │   │   ├── dropdown-menu.tsx
+│   │   │   │   ├── form.tsx
+│   │   │   │   ├── hover-card.tsx
+│   │   │   │   ├── input-otp.tsx
+│   │   │   │   ├── input.tsx
+│   │   │   │   ├── label.tsx
+│   │   │   │   ├── menubar.tsx
+│   │   │   │   ├── navigation-menu.tsx
+│   │   │   │   ├── pagination.tsx
+│   │   │   │   ├── popover.tsx
+│   │   │   │   ├── progress.tsx
+│   │   │   │   ├── radio-group.tsx
+│   │   │   │   ├── resizable.tsx
+│   │   │   │   ├── scroll-area.tsx
+│   │   │   │   ├── select.tsx
+│   │   │   │   ├── separator.tsx
+│   │   │   │   ├── sheet.tsx
+│   │   │   │   ├── sidebar.tsx
+│   │   │   │   ├── skeleton.tsx
+│   │   │   │   ├── slider.tsx
+│   │   │   │   ├── sonner.tsx
+│   │   │   │   ├── switch.tsx
+│   │   │   │   ├── table.tsx
+│   │   │   │   ├── tabs.tsx
+│   │   │   │   ├── textarea.tsx
+│   │   │   │   ├── toast.tsx
+│   │   │   │   ├── toaster.tsx
+│   │   │   │   ├── toggle-group.tsx
+│   │   │   │   ├── toggle.tsx
+│   │   │   │   ├── tooltip.tsx
+│   │   │   │   └── use-toast.ts
+│   │   │   ├── ClassifiedMap.tsx
+│   │   │   ├── ClassifiedTileLayers.tsx
+│   │   │   ├── DualLakeViewer.tsx
+│   │   │   ├── DualMapViewer.tsx
+│   │   │   ├── ErrorBoundary.tsx
+│   │   │   ├── GEEStatusBadge.tsx
+│   │   │   ├── ImageOverlay.tsx
+│   │   │   ├── MapContainer.tsx
+│   │   │   ├── MapSection.tsx
+│   │   │   ├── MapViewer.tsx
+│   │   │   ├── NavLink.tsx
+│   │   │   ├── Navbar.tsx
+│   │   │   ├── TemporalComparisonViewer.tsx
+│   │   │   └── ValidatedReportView.tsx
+│   │   ├── hooks
+│   │   │   ├── use-mobile.tsx
+│   │   │   ├── use-toast.ts
+│   │   │   └── useMapSync.ts
+│   │   ├── lib
+│   │   │   ├── api.ts
+│   │   │   ├── classifiedTiles.ts
+│   │   │   ├── geojson.ts
+│   │   │   ├── kmlParser.test.ts
+│   │   │   ├── kmlParser.ts
+│   │   │   └── utils.ts
+│   │   ├── mock
+│   │   │   └── mockAnalysis.ts
+│   │   ├── pages
+│   │   │   ├── Analysis.tsx
+│   │   │   ├── Analysis.tsx.backup
+│   │   │   ├── Charts.tsx
+│   │   │   ├── Downloads.tsx
+│   │   │   ├── Index.tsx
+│   │   │   ├── MapViewer.tsx
+│   │   │   ├── MockAnalysis.tsx
+│   │   │   ├── NotFound.tsx
+│   │   │   ├── RamannaClassifiedMap.tsx
+│   │   │   ├── RamannaDualMap.tsx
+│   │   │   ├── RamannaDualMapSimple.tsx
+│   │   │   ├── Reports.tsx
+│   │   │   ├── TestPage.tsx
+│   │   │   └── analysis.css
+│   │   ├── types
+│   │   │   └── analysis.ts
+│   │   ├── utils
+│   │   │   └── kmzToGeoJSON.ts
+│   │   ├── App.css
+│   │   ├── App.tsx
+│   │   ├── index.css
+│   │   ├── main.tsx
+│   │   └── vite-env.d.ts
+│   ├── .env
+│   ├── .env.production
+│   ├── .gitignore
+│   ├── ERROR_RESPONSES.ts
+│   ├── ID_BASED_ROUTING_IMPLEMENTATION.md
+│   ├── IMPLEMENTATION_SUMMARY.md
+│   ├── KML_FEATURE_README.md
+│   ├── README.md
+│   ├── bun.lockb
+│   ├── components.json
+│   ├── eslint.config.js
+│   ├── index.html
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── postcss.config.js
+│   ├── tailwind.config.ts
+│   ├── test-app.html
+│   ├── tsconfig.app.json
+│   ├── tsconfig.json
+│   ├── tsconfig.node.json
+│   └── vite.config.ts
+├── .env.example
+├── .env.local
+├── .gitignore
+├── Lake-Encroachment-Detection-Using-Remote-Sensing-GIS-and-Spectral-Indices.pdf.zip
+├── VALIDATED_PIPELINE_SAFETY_CHECKS.md
+├── audit_report.json
+├── best_model.pkl
+├── best_model_optimized.pkl
+├── image.png
+├── package-lock.json
+├── random forest.pkcls
+├── run_backend.bat
+└── run_frontend.bat

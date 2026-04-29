@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>KMZ Test</title>
+</head>
+<body>
+    <h1>Testing KMZ File Access</h1>
+    <div id="status">Loading...</div>
+    <div id="result"></div>
+    
+    <script src="https://unpkg.com/jszip@3.10.1/dist/jszip.min.js"></script>
+    <script src="https://unpkg.com/@tmcw/togeojson@5.1.0/dist/togeojson.min.js"></script>
+    
+    <script>
+        async function testKMZ() {
+            try {
+                document.getElementById('status').textContent = 'Fetching KMZ...';
+                
+                // Fetch KMZ file
+                const response = await fetch('/data/ramanna.kmz');
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch KMZ: ${response.statusText}`);
+                }
+                
+                document.getElementById('status').textContent = 'KMZ fetched, parsing...';
+                
+                const arrayBuffer = await response.arrayBuffer();
+                
+                // Unzip KMZ using JSZip
+                const zip = await JSZip.loadAsync(arrayBuffer);
+                
+                // Find KML file
+                let kmlContent = null;
+                for (const [filename, file] of Object.entries(zip.files)) {
+                    if (filename.toLowerCase().endsWith('.kml') && !filename.includes('__MACOSX')) {
+                        kmlContent = await file.async('string');
+                        console.log('Found KML file:', filename);
+                        break;
+                    }
+                }
+                
+                if (!kmlContent) {
+                    throw new Error('No KML file found in KMZ archive');
+                }
+                
+                document.getElementById('status').textContent = 'KML found, converting to GeoJSON...';
+                
+                // Parse KML to DOM
+                const parser = new DOMParser();
+                const kmlDom = parser.parseFromString(kmlContent, 'text/xml');
+                
+                // Convert to GeoJSON
+                const geoJSON = toGeoJSON.kml(kmlDom);
+                
+                document.getElementById('status').textContent = 'Success!';
+                document.getElementById('result').innerHTML = `
+                    <h2>GeoJSON Result:</h2>
+                    <pre>${JSON.stringify(geoJSON, null, 2)}</pre>
+                `;
+                
+            } catch (error) {
+                document.getElementById('status').textContent = 'Error: ' + error.message;
+                document.getElementById('result').innerHTML = `
+                    <h2>Error Details:</h2>
+                    <pre>${error.stack}</pre>
+                `;
+            }
+        }
+        
+        // Run test when page loads
+        testKMZ();
+    </script>
+</body>
+</html>

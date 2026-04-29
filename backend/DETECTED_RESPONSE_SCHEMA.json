@@ -1,0 +1,105 @@
+{
+  "success": true,
+  "model_ok": true,
+  "model_accuracy": 0.8837,
+  "data_source": "GEE_LIVE",
+  "satellite_pixels": 5000,
+  "warnings": [
+    "string"
+  ],
+  "error": null,
+  "result": {
+    "success": true,
+    "period": {
+      "start_date": "YYYY-MM-DD",
+      "end_date": "YYYY-MM-DD"
+    },
+    "areas": {
+      "start": [
+        {
+          "class": "BareSoil | BuiltUp | Vegetation",
+          "pixel_count": 0,
+          "percent": 0.0
+        }
+      ],
+      "end": [
+        {
+          "class": "BareSoil | BuiltUp | Vegetation",
+          "pixel_count": 0,
+          "percent": 0.0
+        }
+      ]
+    },
+    "transitions": [
+      {
+        "from": "string",
+        "to": "string",
+        "pixels": 0
+      }
+    ],
+    "change_summary": {
+      "baresoil_loss_pixels": 0,
+      "builtup_gain_pixels": 0,
+      "vegetation_gain_pixels": 0,
+      "total_encroachment_pixels": 0,
+      "trend": "encroachment | stabilization | no_change"
+    },
+    "total_pixels": 5000,
+    "t1_classes": [
+      "string"
+    ],
+    "t2_classes": [
+      "string"
+    ],
+    "classified_geojson_t1": {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Polygon | MultiPolygon",
+            "coordinates": []
+          },
+          "properties": {
+            "classification": "string",
+            "class_distribution": {},
+            "n_samples": 0,
+            "note": "string"
+          }
+        }
+      ]
+    },
+    "classified_geojson_t2": {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Polygon | MultiPolygon",
+            "coordinates": []
+          },
+          "properties": {
+            "classification": "string",
+            "class_distribution": {},
+            "n_samples": 0,
+            "note": "string"
+          }
+        }
+      ]
+    },
+    "bounds": {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon | MultiPolygon",
+        "coordinates": []
+      },
+      "properties": {}
+    },
+    "dates": {
+      "t1": "YYYY-MM-DD",
+      "t2": "YYYY-MM-DD"
+    },
+    "method": "Random Forest classifier with spectral indices"
+  }
+}
+

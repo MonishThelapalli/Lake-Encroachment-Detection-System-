@@ -1,0 +1,22 @@
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+
+const TestApp = () => {
+  return (
+    <div>
+      <h1>Test Page</h1>
+      <p>Testing basic React rendering...</p>
+      <button onClick={() => {
+        fetch('http://localhost:8001/api/test-classified')
+          .then(r => r.json())
+          .then(data => console.log('API Response:', data))
+          .catch(e => console.error('API Error:', e));
+      }}>
+        Test API
+      </button>
+    </div>
+  );
+};
+
+const root = createRoot(document.getElementById('root')!);
+root.render(<TestApp />);

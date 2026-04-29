@@ -1,0 +1,36 @@
+{
+    "1_system_status": "FAILING",
+    "2_stage_wise_status": {
+        "Backend": "OK",
+        "GEE": "OK",
+        "Water_Detection": "FAIL",
+        "Shoreline": "FAIL",
+        "Features": "FAIL",
+        "Model": "OK",
+        "Frontend": "OK"
+    },
+    "3_key_metrics": {
+        "satellite_pixels": "0 (Failed density check)",
+        "water_pixels": "0",
+        "shoreline_pixels": "0",
+        "features_extracted": 0
+    },
+    "4_identified_bottleneck": "Water Detection / Feature Extraction Phase (GEE)",
+    "5_severity": "CRITICAL",
+    "6_suggested_fix": "The hardcoded MIN_ALIGNED_PIXELS threshold in gee_processor.py and the condition 'available_pixels < 50 and int(diagnostics[\"estimated_pixels\"]) < 200' rejects small polygons. Recommendation: Dynamic thresholding based on Lake area or disabling minimum pixel strictness for known small lakes.",
+    "root_cause_analysis": {
+        "classification": "LOGIC ISSUE",
+        "details": "The pipeline strictly enforces minimum pixel counts (e.g. MIN_ALIGNED_PIXELS = 100) and specific geometric heuristics to derive shoreline pixels. For the given small polygon (approx 4.4k sqm or less), after masking out water and generating inner/outer buffers, the resulting shoreline pixels fall under the hardcoded strict minimum of 50. The backend explicitly raises 'Lake too small for reliable analysis.' which propagates to the API response causing NO_SHORELINE_PIXELS and pipeline failure."
+    },
+    "raw_logs_summary": {
+        "backend_health": "status: healthy, model_ok: True, gee_authenticated: True",
+        "kmz_parsing": "Success. Polygon parsed.",
+        "e2e_pipeline_test": "Failed with HTTP 200 returning 'success: False', 'data_source: NO_SHORELINE_PIXELS', 'error: Lake too small for reliable analysis.'",
+        "midway_gee_audit": {
+            "images_found": "365 days -> 72 total, 51 cloud filtered",
+            "water_percentage": 0,
+            "shoreline_percentage": 0,
+            "model_loaded": "True"
+        }
+    }
+}
