@@ -3,7 +3,8 @@
  * Handles requests to /api/analyze endpoint
  */
 
-const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8000';
+// const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8000';
+const API_BASE = "https://lake-encroachment-detection-system--monish2932.replit.app";
 
 console.log("API URL:", API_BASE);
 
