@@ -56,9 +56,9 @@ function mockToResultPayload(): AnalysisResultPayload {
       total_pixels: totalT2,
       trend: 'encroachment',
       summary: {
-        baresoil_loss_pixels: 0,
-        builtup_gain_pixels: 0,
-        vegetation_gain_pixels: 0,
+        baresoil_loss_pixels: 5000,
+        builtup_gain_pixels: 20000,
+        vegetation_gain_pixels: 5000,
         total_encroachment_pixels: mockAnalysis.encroachment.total_area_lost,
         trend: 'encroachment',
       },
@@ -146,6 +146,16 @@ export default function Reports() {
     0;
 
   const totalPixels = result?.encroachment?.total_pixels ?? 0;
+
+  const transitions = result?.transitions || [];
+  const getTransitionPx = (toClass: string) => {
+    const t = transitions.find(tr => tr.from === 'Water' && tr.to === toClass);
+    return t ? t.pixels : 0;
+  };
+
+  const waterToBuiltUp = getTransitionPx('BuiltUp') || result?.encroachment?.summary?.builtup_gain_pixels || 0;
+  const waterToVeg = getTransitionPx('Vegetation') || result?.encroachment?.summary?.vegetation_gain_pixels || 0;
+  const waterToBareSoil = getTransitionPx('BareSoil') || result?.encroachment?.summary?.baresoil_loss_pixels || 0;
 
   const dateT1 = result?.dates?.t1 ?? result?.period?.start_date ?? '';
   const dateT2 = result?.dates?.t2 ?? result?.period?.end_date ?? '';
@@ -373,7 +383,9 @@ export default function Reports() {
                           <div className="h-[7px] w-full bg-slate-100 rounded-full overflow-hidden">
                             <div className={`h-full ${cls.color}`} style={{ width: getPercentageBarWidth(cls.t1Value) }} />
                           </div>
-                          <div className="text-[11px] font-extrabold text-slate-600 w-10 text-right">{cls.t1Value.toFixed(1)}%</div>
+                          <div className="text-[11px] font-extrabold text-slate-600 w-[100px] text-right">
+                            {cls.t1Value.toFixed(1)}% <span className="font-medium text-slate-400">({getClassPx(t1Stats, cls.id).toLocaleString()} px)</span>
+                          </div>
                         </div>
 
                         {/* T2 */}
@@ -382,7 +394,9 @@ export default function Reports() {
                           <div className="h-[7px] w-full bg-slate-100 rounded-full overflow-hidden">
                             <div className={`h-full ${cls.color}`} style={{ width: getPercentageBarWidth(cls.t2Value) }} />
                           </div>
-                          <div className="text-[11px] font-extrabold text-slate-600 w-10 text-right">{cls.t2Value.toFixed(1)}%</div>
+                          <div className="text-[11px] font-extrabold text-slate-600 w-[100px] text-right">
+                            {cls.t2Value.toFixed(1)}% <span className="font-medium text-slate-400">({getClassPx(t2Stats, cls.id).toLocaleString()} px)</span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -390,6 +404,26 @@ export default function Reports() {
                 })}
               </div>
             </div>
+
+            {/* Encroachment Types */}
+            {encroachmentPixels > 0 && (
+              <div className="bg-[#f8fafc] border border-slate-100 rounded-[14px] p-6 mt-8">
+                <div className="flex items-center gap-2 mb-5">
+                  <AlertCircle className="h-5 w-5 text-red-400 opacity-80" strokeWidth={2} />
+                  <h3 className="font-extrabold text-slate-800 text-[14px]">Encroachment Types Detected</h3>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="bg-white border border-[#f1f5f9] rounded-[12px] p-4 flex justify-between items-center shadow-sm">
+                    <div className="text-[13px] font-bold text-slate-700">Water to Built-up</div>
+                    <div className="text-[14px] font-black text-[#dc2626]">{waterToBuiltUp.toLocaleString()} px</div>
+                  </div>
+                  <div className="bg-white border border-[#f1f5f9] rounded-[12px] p-4 flex justify-between items-center shadow-sm">
+                    <div className="text-[13px] font-bold text-slate-700">Water to Vegetation / Bare Soil</div>
+                    <div className="text-[14px] font-black text-[#f59e0b]">{(waterToVeg + waterToBareSoil).toLocaleString()} px</div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </main>
